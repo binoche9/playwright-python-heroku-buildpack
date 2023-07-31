@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# https://devcenter.heroku.com/articles/buildpack-api#bin-compile
+
+
+set -e
+
+# $3 is the environment dir
+env_dir="$3"
+
+# Check the environment dir for the `PLAYWWRIGHT_BROWSERS_PATH`
+# variable and if it exists export it
+if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+        if [ "$e" == "PLAYWRIGHT_BROWSERS_PATH" ]; then
+            export "$e=$(cat $env_dir/$e)"
+        fi
+    done
+fi
+
+echo $env_dir
+
+# Install the Playwright browsers
+playwright install
