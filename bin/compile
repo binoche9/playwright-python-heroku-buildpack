@@ -18,7 +18,10 @@ if [ -d "$env_dir" ]; then
     done
 fi
 
-echo $env_dir
+echo $1
+echo $2
+echo $3
+echo $PWD
 
 # Install the Playwright browsers
 playwright install
